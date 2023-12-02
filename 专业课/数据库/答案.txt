@@ -1,0 +1,31 @@
+#（13）查询用户“郭辉”的购物车信息，列出商品id、名称、价格和数量。
+select g.gid, gname, gprice, cnum
+from users u join cart c join goods g
+on u.uid = c.uid and c.gid = g.gid
+#where uname = '郭辉' ;
+where uname = '段湘林' ;
+
+#（14）查询用户“郭辉”的订单信息，列出订单id、订单编号、订单金额和下单日期。
+select oid, ocode, oamount, ordertime
+from users u join orders o
+on u.uid = o.uid
+where uname = '郭辉' ;
+
+#（15）查询订单号为“O210912082615101”的订单详情，列出商品名称、价格和购买量。
+select gname, gprice, inum
+from orders o join ordersitem od join goods g
+on o.oid = od.oid and od.gid = g.gid
+where ocode = 'O210912082615101' ;
+
+#（16）查询购买过“平凡的世界”商品的用户信息，列出用户名、性别和出生日期
+select distinct uname, ugender,ubirthday
+from users u join orders o join ordersitem od join goods g
+on u.uid = o.uid and o.oid = od.oid and od.gid = g.gid
+where gname like '%平凡的世界%' ;
+
+#（17）使用联合查询，查询来自北京、广州和深圳3个城市的用户，列出用户名、性别和所在城市。
+select uname, ugender, ucity from users where ucity ='北京'
+union
+select uname, ugender, ucity from users where ucity ='广州'
+union
+select uname, ugender, ucity from users where ucity ='深圳';
